@@ -7,15 +7,17 @@ import {
 import { Store } from '@ngrx/store';
 import { registerAction } from '../store/actions';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthStateInterface } from '../types/authState.interface';
+import { selectIsSubmitting } from '../store/reducers';
 
 @Component({
   selector: 'mc-register',
   templateUrl: './register.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule],
 })
 export class RegisterComponent {
-  constructor(private _formBuilder: FormBuilder, private _store: Store) {}
   registerForm = this._formBuilder.nonNullable.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -26,6 +28,13 @@ export class RegisterComponent {
     state: ['', Validators.required],
     zipCode: ['', Validators.required],
   });
+
+  isSubmitting$ = this._store.select(selectIsSubmitting);
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _store: Store<AuthStateInterface>
+  ) {}
 
   onSubmit() {
     console.log('form', this.registerForm.getRawValue());
