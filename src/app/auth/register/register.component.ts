@@ -1,14 +1,21 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  RegisterRequestInterface,
+  AddressInterface,
+} from '../types/registerRequest.interface';
+import { Store } from '@ngrx/store';
+import { registerAction } from '../store/actions';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'mc-register',
   templateUrl: './register.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
 })
 export class RegisterComponent {
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private _store: Store) {}
   registerForm = this._formBuilder.nonNullable.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -22,5 +29,19 @@ export class RegisterComponent {
 
   onSubmit() {
     console.log('form', this.registerForm.getRawValue());
+    const request: RegisterRequestInterface = {
+      firstName: this.registerForm.getRawValue().firstName,
+      lastName: this.registerForm.getRawValue().lastName,
+      email: this.registerForm.getRawValue().email,
+      password: this.registerForm.getRawValue().password,
+      address: {
+        street: this.registerForm.getRawValue().streetAddress,
+        city: this.registerForm.getRawValue().city,
+        state: this.registerForm.getRawValue().state,
+        zip: this.registerForm.getRawValue().zipCode,
+      },
+    };
+    this._store.dispatch(registerAction({ request }));
+    console.log('request', request);
   }
 }
