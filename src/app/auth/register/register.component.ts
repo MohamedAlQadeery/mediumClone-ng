@@ -5,7 +5,7 @@ import {
   AddressInterface,
 } from '../types/registerRequest.interface';
 import { Store } from '@ngrx/store';
-import { registerAction } from '../store/actions';
+import { authActions } from '../store/actions';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthStateInterface } from '../types/authState.interface';
@@ -34,8 +34,7 @@ export class RegisterComponent {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _store: Store<AuthStateInterface>,
-    private _authService: AuthService
+    private _store: Store<AuthStateInterface>
   ) {}
 
   onSubmit() {
@@ -52,7 +51,7 @@ export class RegisterComponent {
         zipCode: this.registerForm.getRawValue().zipCode,
       },
     };
-    this._store.dispatch(registerAction({ request }));
+    this._store.dispatch(authActions.register({ request }));
 
     console.log('request', request);
   }

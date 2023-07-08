@@ -1,10 +1,5 @@
+import { CurrentUserInterface } from 'src/app/shared/types/currentUser.interface';
+
 export interface AuthResponseInterface {
-  Id: string;
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Role: string;
-  Token: string;
-  Bio: string | null;
-  Image: string | null;
+  user: CurrentUserInterface;
 }
