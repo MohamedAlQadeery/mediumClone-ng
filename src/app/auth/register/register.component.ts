@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthStateInterface } from '../types/authState.interface';
 import { selectIsSubmitting } from '../store/reducers';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'mc-register',
@@ -33,7 +34,8 @@ export class RegisterComponent {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _store: Store<AuthStateInterface>
+    private _store: Store<AuthStateInterface>,
+    private _authService: AuthService
   ) {}
 
   onSubmit() {
@@ -47,10 +49,11 @@ export class RegisterComponent {
         street: this.registerForm.getRawValue().streetAddress,
         city: this.registerForm.getRawValue().city,
         state: this.registerForm.getRawValue().state,
-        zip: this.registerForm.getRawValue().zipCode,
+        zipCode: this.registerForm.getRawValue().zipCode,
       },
     };
     this._store.dispatch(registerAction({ request }));
+
     console.log('request', request);
   }
 }
