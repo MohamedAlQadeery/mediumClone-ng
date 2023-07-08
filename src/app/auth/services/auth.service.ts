@@ -17,7 +17,7 @@ export class AuthService {
   ): Observable<CurrentUserInterface> {
     const url = environment.apiUrl + '/auth/register';
     return this._http
-      .post<AuthResponseInterface>(url, request)
-      .pipe(map((res) => res.user));
+      .post<CurrentUserInterface>(url, request)
+      .pipe(tap((user) => console.log(user)));
   }
 }

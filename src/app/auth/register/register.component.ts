@@ -38,7 +38,6 @@ export class RegisterComponent {
   ) {}
 
   onSubmit() {
-    console.log('form', this.registerForm.getRawValue());
     const request: RegisterRequestInterface = {
       firstName: this.registerForm.getRawValue().firstName,
       lastName: this.registerForm.getRawValue().lastName,
@@ -52,7 +51,5 @@ export class RegisterComponent {
       },
     };
     this._store.dispatch(authActions.register({ request }));
-
-    console.log('request', request);
   }
 }
