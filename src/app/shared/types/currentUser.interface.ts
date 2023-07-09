@@ -1,10 +1,10 @@
 export interface CurrentUserInterface {
-  Id: string;
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Role: string;
-  Token: string;
-  Bio: string | null;
-  Image: string | null;
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  token: string;
+  bio: string | null;
+  image: string | null;
 }
