@@ -9,14 +9,21 @@ import { authActions } from '../store/actions';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthStateInterface } from '../types/authState.interface';
-import { selectIsSubmitting } from '../store/reducers';
+import { selectIsSubmitting, selectValidatonErrors } from '../store/reducers';
 import { AuthService } from '../services/auth.service';
+import { combineLatest } from 'rxjs';
+import { BackendErrorsMessagesComponent } from 'src/app/shared/components/backend-errors/backend-errors.component';
 
 @Component({
   selector: 'mc-register',
   templateUrl: './register.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    CommonModule,
+    BackendErrorsMessagesComponent,
+  ],
 })
 export class RegisterComponent {
   registerForm = this._formBuilder.nonNullable.group({
@@ -30,8 +37,10 @@ export class RegisterComponent {
     zipCode: ['', Validators.required],
   });
 
-  isSubmitting$ = this._store.select(selectIsSubmitting);
-
+  data$ = combineLatest({
+    isSubmitting: this._store.select(selectIsSubmitting),
+    backendErrors: this._store.select(selectValidatonErrors),
+  });
   constructor(
     private _formBuilder: FormBuilder,
     private _store: Store<AuthStateInterface>
