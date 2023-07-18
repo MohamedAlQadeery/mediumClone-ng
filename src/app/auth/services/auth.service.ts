@@ -28,4 +28,11 @@ export class AuthService {
       .post<CurrentUserInterface>(url, request)
       .pipe(tap((user) => console.log(user)));
   }
+
+  getCurrentUser(): Observable<CurrentUserInterface> {
+    const url = environment.apiUrl + '/auth/user';
+    return this._http
+      .get<CurrentUserInterface>(url)
+      .pipe(tap((user) => console.log(user)));
+  }
 }
