@@ -10,12 +10,16 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import * as authEffects from './app/auth/store/effects';
 import { authInterceptor } from './app/shared/services/auth.interceptor';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(appRoutes),
-    provideStore(),
+    provideStore({
+      router: routerReducer,
+    }),
+    provideRouterStore(),
     provideState(AuthFeatureKey, AuthFeatureReducer),
     provideEffects(authEffects),
     provideStoreDevtools({
@@ -25,5 +29,6 @@ bootstrapApplication(AppComponent, {
       trace: false,
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
     }),
+    provideRouterStore(),
   ],
 });
