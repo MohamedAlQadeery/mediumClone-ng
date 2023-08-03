@@ -10,12 +10,14 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
+import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'mc-feed',
   templateUrl: './feed.component.html',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ErrorMessageComponent, LoadingComponent],
 })
 export class FeedComponent implements OnInit {
   @Input() apiUrl: string = '';
