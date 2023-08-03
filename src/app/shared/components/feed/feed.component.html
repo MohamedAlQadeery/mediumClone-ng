@@ -1,1 +1,37 @@
-<h3>feed shared component</h3>
+<ng-container *ngIf="data$ | async as data">
+  <div *ngIf="data.isLoading">Loading Feed data.....</div>
+  <div *ngIf="data.error">{{ data.error }}</div>
+
+  <div *ngIf="data.feed">
+    <div class="article-preview" *ngFor="let article of data.feed.articles">
+      <div class="article-meta">
+        <a
+          [routerLink]="['/profiles', article.author.fullName]"
+          routerLinkActive="router-link-active"
+        >
+          <img [src]="imagePath + '/' + article.author.image" />
+        </a>
+        <div class="info">
+          <a
+            [routerLink]="['/profiles', article.author.fullName]"
+            routerLinkActive="router-link-active"
+          >
+            {{ article.author.fullName }}
+          </a>
+          <span class="date">
+            {{ article.createdDateTime }}
+          </span>
+        </div>
+        <div class="pull-xs-right">ADD TO FAVORITE</div>
+      </div>
+      <a [routerLink]="['/articles', article.slug]" class="preview-link">
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.body }}</p>
+        <span>Read more...</span>
+        TAG LIST
+      </a>
+    </div>
+
+    PAGINATION
+  </div>
+</ng-container>

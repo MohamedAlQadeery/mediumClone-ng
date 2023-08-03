@@ -1,14 +1,14 @@
 export interface ArticleInterface {
-  Title: string;
-  Body: string;
-  Slug: string;
-  Author: AuthorInterface;
-  TagsNames: string[];
-  CreatedDateTime: string;
+  title: string;
+  body: string;
+  slug: string;
+  author: AuthorInterface;
+  tagsNames: string[];
+  createdDateTime: string;
 }
 
 export interface AuthorInterface {
-  Id: string;
-  FullName: string;
-  Image: string;
+  id: string;
+  fullName: string;
+  image: string;
 }
