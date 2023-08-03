@@ -1,6 +1,14 @@
 export interface ArticleInterface {
   Title: string;
   Body: string;
-  AuthorId: string;
-  TagsId: number[];
+  Slug: string;
+  Author: AuthorInterface;
+  TagsNames: string[];
+  CreatedDateTime: string;
+}
+
+export interface AuthorInterface {
+  Id: string;
+  FullName: string;
+  Image: string;
 }

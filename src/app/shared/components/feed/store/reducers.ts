@@ -26,7 +26,7 @@ const feedFeature = createFeature({
 
 export const {
   name: feedFeatureKey,
-  reducer: feedReducer,
+  reducer: feedFeatureReducer,
   selectIsLoading,
   selectError,
   selectData: selectFeedData,
