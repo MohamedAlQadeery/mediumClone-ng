@@ -1,7 +1,8 @@
-import { GetFeedResponseInterface } from './getFeedResponse.interface';
+import { PaginatedListInterface } from 'src/app/shared/types/paginatedList.interface';
+import { ArticleInterface } from 'src/app/shared/types/article.interface';
 
 export interface FeedStateInterface {
   isLoading: boolean;
   error: string | null;
-  data: GetFeedResponseInterface | null;
+  data: PaginatedListInterface<ArticleInterface> | null;
 }

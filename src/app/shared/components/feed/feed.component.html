@@ -7,7 +7,7 @@
   </mc-error-message>
 
   <div *ngIf="data.feed">
-    <div class="article-preview" *ngFor="let article of data.feed.articles">
+    <div class="article-preview" *ngFor="let article of data.feed.items">
       <div class="article-meta">
         <a
           [routerLink]="['/profiles', article.author.fullName]"
