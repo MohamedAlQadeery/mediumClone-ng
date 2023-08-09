@@ -32,7 +32,7 @@
         <h1>{{ article.title }}</h1>
         <p>{{ article.body }}</p>
         <span>Read more...</span>
-        TAG LIST
+        <mc-tag-list [tags]="article.tagNames"></mc-tag-list>
       </a>
     </div>
 

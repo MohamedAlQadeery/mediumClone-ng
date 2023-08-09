@@ -3,7 +3,7 @@ export interface ArticleInterface {
   body: string;
   slug: string;
   author: AuthorInterface;
-  tagsNames: string[];
+  tagNames: string[];
   createdDateTime: string;
 }
 
