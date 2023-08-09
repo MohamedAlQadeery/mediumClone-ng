@@ -36,6 +36,12 @@
       </a>
     </div>
 
-    PAGINATION
+    <mc-pagination
+      [baseUrl]="baseUrl"
+      [totalCount]="data.feed.totalItems"
+      [totalPages]="data.feed.totalPages"
+      [pageNumber]="data.feed.currentPage"
+      [pageSize]="data.feed.itemsPerPage"
+    ></mc-pagination>
   </div>
 </ng-container>

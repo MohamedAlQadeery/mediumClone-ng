@@ -8,27 +8,62 @@ import {
   selectFeedIsLoading,
 } from './store/reducers';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { LoadingComponent } from '../loading/loading.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import queryString from 'query-string';
 
 @Component({
   selector: 'mc-feed',
   templateUrl: './feed.component.html',
   standalone: true,
-  imports: [CommonModule, RouterLink, ErrorMessageComponent, LoadingComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    ErrorMessageComponent,
+    LoadingComponent,
+    PaginationComponent,
+  ],
 })
 export class FeedComponent implements OnInit {
   @Input() apiUrl: string = '';
   imagePath = environment.imagesSmallPath;
+
   data$ = combineLatest({
     isLoading: this._store.select(selectFeedIsLoading),
     error: this._store.select(selectFeedError),
     feed: this._store.select(selectFeedData),
   });
-  constructor(private _store: Store) {}
+
+  //#region Pagination
+  pageNumber: number = 1;
+  pageSize: number = 2;
+  baseUrl = this._router.url.split('?')[0];
+
+  //#endregion
+  constructor(
+    private _store: Store,
+    private _activedRoute: ActivatedRoute,
+    private _router: Router
+  ) {}
   ngOnInit(): void {
-    this._store.dispatch(feedActions.getFeed({ url: this.apiUrl }));
+    this._activedRoute.queryParamMap.subscribe((params) => {
+      this.pageNumber = Number(params.get('pageNumber') || '1');
+      this.getFeed();
+    });
+  }
+
+  private getFeed() {
+    const parsedUrl = queryString.parseUrl(this.apiUrl);
+    const stringifiedParams = queryString.stringify({
+      pageNumber: this.pageNumber,
+      pageSize: this.pageSize,
+      ...parsedUrl.query,
+    });
+    const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
+    console.log(apiUrlWithParams);
+    this._store.dispatch(feedActions.getFeed({ url: apiUrlWithParams }));
   }
 }
