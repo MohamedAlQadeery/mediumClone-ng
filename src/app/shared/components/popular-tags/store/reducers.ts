@@ -26,8 +26,8 @@ const popularTagsFeature = createFeature({
       ...state,
       isLoading: false,
       error: action.errorResponse,
-    })),
-    on(routerNavigationAction, () => initialState)
+    }))
+    // on(routerNavigationAction, () => initialState)
   ),
 });
 
