@@ -10,7 +10,7 @@
     <div class="tag-list">
       <a
         *ngFor="let popularTag of data.tags"
-        [routerLink]="['/tags', popularTag.name]"
+        [routerLink]="['/tag', popularTag.name]"
         class="tag-default tag-pill"
         >{{ popularTag.name }}</a
       >

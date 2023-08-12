@@ -19,4 +19,9 @@ export const appRoutes: Route[] = [
         (m) => m.globalFeedRoutes
       ),
   },
+  {
+    path: 'tag/:tagName',
+    loadChildren: () =>
+      import('src/app/tagFeed/tagFeed.routes').then((m) => m.tagFeedRoutes),
+  },
 ];

@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { feedActions } from './store/actions';
 import { combineLatest } from 'rxjs';
@@ -29,7 +35,7 @@ import { TagListComponent } from './components/tagList.component';
     TagListComponent,
   ],
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnChanges {
   @Input() apiUrl: string = '';
   imagePath = environment.imagesSmallPath;
 
@@ -50,6 +56,15 @@ export class FeedComponent implements OnInit {
     private _activedRoute: ActivatedRoute,
     private _router: Router
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    const isApiUrlChanged =
+      !changes['apiUrl'].firstChange &&
+      changes['apiUrl'].currentValue !== changes['apiUrl'].previousValue;
+
+    if (isApiUrlChanged) {
+      this.getFeed();
+    }
+  }
   ngOnInit(): void {
     this._activedRoute.queryParamMap.subscribe((params) => {
       this.pageNumber = Number(params.get('pageNumber') || '1');
