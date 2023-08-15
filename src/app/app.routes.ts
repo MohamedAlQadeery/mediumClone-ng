@@ -20,6 +20,11 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: 'feed',
+    loadChildren: () =>
+      import('src/app/yourFeed/yourFeed.routes').then((m) => m.yourFeedRoutes),
+  },
+  {
     path: 'tag/:tagName',
     loadChildren: () =>
       import('src/app/tagFeed/tagFeed.routes').then((m) => m.tagFeedRoutes),

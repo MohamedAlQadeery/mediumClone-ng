@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { TagFeedComponent } from './components/globalFeed/tagFeed.component';
+import { TagFeedComponent } from './components/tagFeed/tagFeed.component';
 
 export const tagFeedRoutes: Routes = [
   {
