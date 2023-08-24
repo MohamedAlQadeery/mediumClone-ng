@@ -14,4 +14,9 @@ export class ArticleService {
     const baseUrl = environment.apiUrl + `/articles/${id}`;
     return this._http.get<ArticleInterface>(baseUrl);
   }
+
+  deleteArticle(id: string): Observable<{}> {
+    const baseUrl = environment.apiUrl + `/articles/${id}`;
+    return this._http.delete<ArticleInterface>(baseUrl);
+  }
 }

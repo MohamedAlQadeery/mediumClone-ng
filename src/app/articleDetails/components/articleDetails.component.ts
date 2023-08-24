@@ -42,4 +42,8 @@ export class ArticleDetailsComponent implements OnInit {
       articleDetailsActions.getArticleDetails({ id: this.id })
     );
   }
+
+  deleteArticle(): void {
+    this.store.dispatch(articleDetailsActions.deleteArticle({ id: this.id }));
+  }
 }
