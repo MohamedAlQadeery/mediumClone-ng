@@ -25,14 +25,24 @@
                 formControlName="body"
               ></textarea>
             </fieldset>
-            <fieldset class="form-group">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Enter tags"
-                formControlName="tags"
-              />
-            </fieldset>
+            <ng-container
+              *ngIf="tags$ | async as popularTags; else loadingTags"
+            >
+              <fieldset class="form-group">
+                <select
+                  class="form-control form-control-lg"
+                  multiple
+                  formControlName="tags"
+                >
+                  <option *ngFor="let tag of popularTags" [value]="tag.id">
+                    {{ tag.name }}
+                  </option>
+                </select>
+              </fieldset>
+            </ng-container>
+            <ng-template #loadingTags>
+              <p>Loading Tags...</p>
+            </ng-template>
             <fieldset>
               <button
                 type="submit"

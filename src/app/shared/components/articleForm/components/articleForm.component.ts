@@ -4,7 +4,7 @@ import { BackendErrorsInterface } from 'src/app/shared/types/backendErrors.inter
 import { TagResponseInterface } from '../../popular-tags/types/popularTagResponse.interface';
 import { Observable } from 'rxjs';
 import { TagService } from '../../popular-tags/services/tag.service';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BackendErrorsMessagesComponent } from '../../backend-errors/backend-errors.component';
 
@@ -29,7 +29,7 @@ export class ArticleFormComponenet implements OnInit {
   form = this.fb.nonNullable.group({
     name: '',
     body: '',
-    tags: '',
+    tags: new FormControl(['']),
   });
 
   initForm() {
@@ -41,7 +41,7 @@ export class ArticleFormComponenet implements OnInit {
       this.form.patchValue({
         name: this.initialValues.name,
         body: this.initialValues.body,
-        tags: this.initialValues.tags.join(' '),
+        tags: this.initialValues.tags,
       });
     }
   }
@@ -50,7 +50,7 @@ export class ArticleFormComponenet implements OnInit {
     const formValues = this.form.getRawValue();
     const articleFormValues: ArticleFormValuesInterface = {
       ...formValues,
-      tags: formValues.tags.split(' '),
+      tags: formValues.tags!,
     };
 
     this.articleSubmit?.emit(articleFormValues);
