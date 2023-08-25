@@ -1,5 +1,5 @@
 export interface ArticleFormValuesInterface {
-  name: string;
+  title: string;
   body: string;
-  tags: string[];
+  selectedTags: string[];
 }

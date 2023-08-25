@@ -27,7 +27,7 @@ export class ArticleFormComponenet implements OnInit {
   }
   tags$ = this.tagService.getPopularTags();
   form = this.fb.nonNullable.group({
-    name: '',
+    title: '',
     body: '',
     tags: new FormControl(['']),
   });
@@ -39,9 +39,9 @@ export class ArticleFormComponenet implements OnInit {
 
     if (this.initialValues) {
       this.form.patchValue({
-        name: this.initialValues.name,
+        title: this.initialValues.title,
         body: this.initialValues.body,
-        tags: this.initialValues.tags,
+        tags: this.initialValues.selectedTags,
       });
     }
   }
@@ -50,7 +50,7 @@ export class ArticleFormComponenet implements OnInit {
     const formValues = this.form.getRawValue();
     const articleFormValues: ArticleFormValuesInterface = {
       ...formValues,
-      tags: formValues.tags!,
+      selectedTags: formValues.tags!,
     };
 
     this.articleSubmit?.emit(articleFormValues);
